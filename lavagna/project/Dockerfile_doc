@@ -1,0 +1,18 @@
+FROM maven:ibmjava-alpine AS base
+
+WORKDIR /doc
+
+COPY . .
+
+RUN mvn clean stampo:build
+
+#########################
+
+FROM nginx:stable-alpine
+
+WORKDIR /etc/nginx/html
+
+COPY --from=base /doc/target/ ./
+
+COPY --from=base /doc/nginx.conf /etc/nginx/
+

@@ -1,5 +1,8 @@
 FROM nginx:stable-alpine
 
-WORKDIR /etc/nginx/html
+WORKDIR /etc/nginx/
 
-COPY ./webapp ./webapp
+#VOLUME [ "/reverse_proxy" ]
+
+COPY ./webapp ./html
+COPY nginx.conf .

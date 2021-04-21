@@ -24,6 +24,8 @@ ENV DB_USER 'root'
 ENV DB_PASS '123'
 ENV SPRING_PROFILE 'dev'
 
+EXPOSE 8080
+
 RUN chmod 775 java_exec.sh
 
 # Execute the web archive

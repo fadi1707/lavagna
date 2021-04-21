@@ -3,14 +3,13 @@ version: '2.1'
 services:
 
     reverse-proxy:
-        image: nginx:latest
+        image: 822423649500.dkr.ecr.eu-central-1.amazonaws.com/containers:proxy1.2 
         container_name: reverse_proxy
-        build: ./reverse_proxy
         depends_on:
             - lavagna
-        volumes:
-          - ./reverse_proxy/nginx.conf:/etc/nginx/nginx.conf
-          - ./reverse_proxy/webapp:/etc/nginx/html/static
+              #        volumes:
+                #- reverse_proxy/nginx.conf:/etc/nginx/nginx.conf
+                #- reverse_proxy/webapp:/etc/nginx/html/static
         ports: 
           - 80:80
         
@@ -34,26 +33,15 @@ services:
             retries: 120
 
     lavagna:
-        image: "lavagna"
+        image: 822423649500.dkr.ecr.eu-central-1.amazonaws.com/containers:latest
         container_name: lavagna
-        build: ./project
         depends_on:
             db:
               condition: service_healthy
         ports: 
             - 8080:80
-
-    doc:
-        image: "documentation"
-        container_name: "doc"
-        build: 
-            context: ./project 
-            dockerfile: Dockerfile_doc
-        ports: 
-            - "8081:8081"
-
     
 
 volumes: 
     db_data:
-
+    reverse_proxy:
